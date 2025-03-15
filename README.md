@@ -1,3 +1,6 @@
+![logo](/src/assets/logo.png)
+
+
 # Propuesta de Videojuego 2D: **"Carnival Crash"**
 ## Temática y Estilo Artístico
 
