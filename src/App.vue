@@ -1,47 +1,118 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <v-app :theme="theme">
+    <div class="parallax-background" ref="background"></div>
+    <v-btn @click="toggleTheme" icon class="theme-toggle-button">
+      <v-icon>{{ theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</v-icon>
+    </v-btn>
+    <v-main>
+      <StorySection />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
+      <!-- Sección game -->
+      <v-container>
+        <h2> Podrás customizar tu personaje con diferentes disfraces y conocer muchos rincones de la ciudad de Cádiz</h2>
+        <v-row class="game-sections" justify="space-around" align="stretch">
+          <!-- Personaje principal -->
+          <v-col cols="12" md="4" class="fill-height">
+            <CharacterSection />
+          </v-col>
 
-  <main>
-    <TheWelcome />
-  </main>
+          <!-- Villanos -->
+          <v-col cols="12" md="4" class="fill-height">
+            <VillainsSection />
+          </v-col>
+
+          <!-- Escenarios -->
+          <v-col cols="12" md="4" class="fill-height">
+            <StagesSection />
+          </v-col>
+        </v-row>
+      </v-container>
+      <v-container class="trailer-container">
+        <Trailer />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
+
+<script>
+import StorySection from './components/StorySection.vue'
+import CharacterSection from './components/CharacterSection.vue'
+import VillainsSection from './components/VillainsSection.vue'
+import StagesSection from './components/StagesSection.vue'
+import Trailer from './components/Trailer.vue'
+
+export default {
+  name: 'App',
+  components: {
+    StorySection,
+    CharacterSection,
+    VillainsSection,
+    StagesSection,
+    Trailer,
+  },
+  data() {
+    return {
+      theme: 'light'
+    }
+  },
+  methods: {
+    toggleTheme() {
+      this.theme = this.theme === 'light' ? 'dark' : 'light'
+    }
+  }
+}
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
+.game-sections {
+  margin-top: 32px;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.v-col {
+  display: flex;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.game-container {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.game-sections {
+  margin-top: 16px;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.v-col {
+  display: flex;
+}
+
+.trailer-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h2 {
+  /* color: #1976D2; */
+  font-weight: 500;
+}
+
+.theme-toggle-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+}
+
+.parallax-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/papelillos.png'); 
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
 }
 </style>
